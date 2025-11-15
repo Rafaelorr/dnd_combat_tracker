@@ -19,7 +19,7 @@ if __name__ == "__main__":
         elif command.lower() == "show":
             pass
         elif command.lower() == "edit_hp":
-            pass
+            edit_hp(invaties)
         elif command.lower() == "edit_ac":
             pass
         else:

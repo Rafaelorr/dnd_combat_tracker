@@ -72,3 +72,21 @@ def toon_alle_entries(invaties:dict) -> None:
   lijst.sort(reverse=True)
   for item in lijst:
      print(f'{item}. {invaties[item]["NAAM"]}')
+
+def edit_hp(invaties:dict) -> dict:
+  lijst : list = list(invaties.keys())
+  lijst.sort(reverse=True)
+  for item in lijst:
+    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
+
+  gekozen_entry :int = int(input("Welke wil je bewerken? "))
+  gekozen_entry :int = lijst[gekozen_entry]
+
+  print()
+  print(f'De huidige hp van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
+  verander_hp_hoeveelheid : int = int(input(f'Hoeveel wil je aan de hp van {invaties[gekozen_entry]["NAAM"]} toevoegen ? '))
+  print()
+
+  invaties[gekozen_entry]["HP"] += verander_hp_hoeveelheid
+
+  return invaties
