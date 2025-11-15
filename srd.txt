@@ -1,0 +1,21 @@
+main menu commands:
+list #list combat entries
+add # add combat entry
+delete # delete combat entry
+show # toon hp en ac van een combat entry
+edit_hp # verandert hp van een combat entry
+edit_ac # verandert ac van een combat entry
+
+# extra
+save # sla huidig invatie op naar een json file
+laad # laad invatie van een json file
+
+datastructuur
+invatie = {
+    plek_invatie:
+        {
+            "naam":"naam",
+            "hp":hp,
+            "ac":ac
+        }
+}
