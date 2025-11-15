@@ -90,3 +90,19 @@ def edit_hp(invaties:dict) -> dict:
   invaties[gekozen_entry]["HP"] += verander_hp_hoeveelheid
 
   return invaties
+
+def show(invaties:dict) -> None:
+  lijst : list = list(invaties.keys())
+  lijst.sort(reverse=True)
+  for item in lijst:
+    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
+
+  gekozen_entry :int = int(input("Van welke wil je de hp en ac zien? "))
+  gekozen_entry :int = lijst[gekozen_entry]
+
+  print()
+  print(f'De hit points van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
+  print(f'De armor class van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["AC"]}')
+  print()
+
+  return
