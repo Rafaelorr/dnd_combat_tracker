@@ -11,7 +11,7 @@ if __name__ == "__main__":
         elif command.lower() == "exit":
             exit()
         elif command.lower() == "list":
-            print(invaties)
+            toon_alle_entries(invaties)
         elif command.lower() == "add":
             add(invaties)
         elif command.lower() == "delete":

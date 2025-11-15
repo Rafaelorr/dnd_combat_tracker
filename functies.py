@@ -66,3 +66,9 @@ def add(invaties:dict) -> dict:
     invaties[invatie]["AC"] = ac
 
     return invaties
+
+def toon_alle_entries(invaties:dict) -> None:
+  lijst : list = list(invaties.keys())
+  lijst.sort(reverse=True)
+  for item in lijst:
+     print(f'{item}. {invaties[item]["NAAM"]}')
