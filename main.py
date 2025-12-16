@@ -21,7 +21,7 @@ if __name__ == "__main__":
         elif command.lower() == "edit_hp":
             edit_hp(invaties)
         elif command.lower() == "edit_ac":
-            pass
+            edit_ac(invaties)
         else:
             print("Invalid command")
             print("Typ 'help' voor een lijst van alle commands")

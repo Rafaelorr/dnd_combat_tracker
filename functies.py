@@ -106,3 +106,21 @@ def show(invaties:dict) -> None:
   print()
 
   return
+
+def edit_ac(invaties):
+  lijst : list = list(invaties.keys())
+  lijst.sort(reverse=True)
+  for item in lijst:
+    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
+
+  gekozen_entry :int = int(input("Welke wil je bewerken? "))
+  gekozen_entry :int = lijst[gekozen_entry]
+
+  print()
+  print(f'De huidige armor class van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
+  verander_ac_hoeveelheid : int = int(input(f'Wat wil je dat de ac van {invaties[gekozen_entry]["NAAM"]} wordt ? '))
+  print()
+
+  invaties[gekozen_entry]["AC"] = verander_ac_hoeveelheid
+
+  return invaties
