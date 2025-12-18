@@ -1,27 +1,41 @@
-from functies import *
+from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac
+
 invaties :dict = {}
 
 if __name__ == "__main__":
     print("DnD combat tracker")
     print("Typ 'help' voor een lijst van alle commands")
     while True:
-        command = input(": ")
-        if command.lower() == "help":
-            help()
-        elif command.lower() == "exit":
+        command = input(": ").lower()
+        if command == "exit":
             exit()
-        elif command.lower() == "list":
+        
+        if command == "list":
             toon_alle_entries(invaties)
-        elif command.lower() == "add":
+            continue
+        
+        if command == "add":
             add(invaties)
-        elif command.lower() == "delete":
+            continue
+
+        if command == "delete":
             pass
-        elif command.lower() == "show":
+            continue
+
+        if command == "show":
             show(invaties)
-        elif command.lower() == "edit_hp":
+            continue
+
+        if command == "edit_hp":
             edit_hp(invaties)
-        elif command.lower() == "edit_ac":
+            continue
+
+        if command == "edit_ac":
             edit_ac(invaties)
-        else:
-            print("Invalid command")
-            print("Typ 'help' voor een lijst van alle commands")
+            continue
+
+        if command == "help":
+            help()
+            continue
+
+        print("Invalid command")
