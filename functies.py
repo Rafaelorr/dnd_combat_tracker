@@ -18,11 +18,11 @@ def help():
             Verandert de armor class van een invatie entry
           """)
 
-def add(invaties:dict) -> dict:
+def add(initiative_lijst:dict) -> dict:
     # kies nieuw invatie om toe te voegen
     try:
       invatie : int = int(input("Invatie van de nieuwe entry: "))
-      if invaties.get(invatie):
+      if initiative_lijst.get(invatie):
          print("Gekozen invatie bestaat al")
          if input("Kies je een ander invatie? y/n").lower() == "y":
             invatie : int = int(input("Invatie van de nieuwe entry: "))
@@ -31,7 +31,7 @@ def add(invaties:dict) -> dict:
     except:
       print("Type de invatie van de nieuwe entry als een nummer bv:1")
       invatie : int = int(input("Invatie van de nieuwe entry: "))
-      if invaties.get(invatie):
+      if initiative_lijst.get(invatie):
          print("Gekozen invatie bestaat al")
          if input("Kies je een ander invatie? y/n").lower() == "y":
             invatie : int = int(input("Invatie van de nieuwe entry: "))
@@ -59,68 +59,68 @@ def add(invaties:dict) -> dict:
       ac : int = int(input("Armor class van de nieuwe entry: "))
 
     # voeg nieuwe entry toe aan de lijst
-    invaties.setdefault(invatie, {})
+    initiative_lijst.setdefault(invatie, {})
     
-    invaties[invatie]["NAAM"] = naam
-    invaties[invatie]["HP"] = hp
-    invaties[invatie]["AC"] = ac
+    initiative_lijst[invatie]["NAAM"] = naam
+    initiative_lijst[invatie]["HP"] = hp
+    initiative_lijst[invatie]["AC"] = ac
 
-    return invaties
+    return initiative_lijst
 
-def toon_alle_entries(invaties:dict) -> None:
-  lijst : list = list(invaties.keys())
+def toon_alle_entries(initiative_lijst:dict) -> None:
+  lijst : list = list(initiative_lijst.keys())
   lijst.sort(reverse=True)
   for item in lijst:
-     print(f'{item}. {invaties[item]["NAAM"]}')
+     print(f'{item}. {initiative_lijst[item]["NAAM"]}')
 
-def edit_hp(invaties:dict) -> dict:
-  lijst : list = list(invaties.keys())
+def edit_hp(initiative_lijst:dict) -> dict:
+  lijst : list = list(initiative_lijst.keys())
   lijst.sort(reverse=True)
   for item in lijst:
-    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
+    print(f'{int(lijst.index(item))}. {initiative_lijst[item]["NAAM"]}')
 
   gekozen_entry :int = int(input("Welke wil je bewerken? "))
   gekozen_entry :int = lijst[gekozen_entry]
 
   print()
-  print(f'De huidige hp van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
-  verander_hp_hoeveelheid : int = int(input(f'Hoeveel wil je aan de hp van {invaties[gekozen_entry]["NAAM"]} toevoegen ? '))
+  print(f'De huidige hp van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["HP"]}')
+  verander_hp_hoeveelheid : int = int(input(f'Hoeveel wil je aan de hp van {initiative_lijst[gekozen_entry]["NAAM"]} toevoegen ? '))
   print()
 
-  invaties[gekozen_entry]["HP"] += verander_hp_hoeveelheid
+  initiative_lijst[gekozen_entry]["HP"] += verander_hp_hoeveelheid
 
-  return invaties
+  return initiative_lijst
 
-def show(invaties:dict) -> None:
-  lijst : list = list(invaties.keys())
+def show(initiative_lijst:dict) -> None:
+  lijst : list = list(initiative_lijst.keys())
   lijst.sort(reverse=True)
   for item in lijst:
-    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
+    print(f'{int(lijst.index(item))}. {initiative_lijst[item]["NAAM"]}')
 
   gekozen_entry :int = int(input("Van welke wil je de hp en ac zien? "))
   gekozen_entry :int = lijst[gekozen_entry]
 
   print()
-  print(f'De hit points van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
-  print(f'De armor class van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["AC"]}')
+  print(f'De hit points van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["HP"]}')
+  print(f'De armor class van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["AC"]}')
   print()
 
   return
 
-def edit_ac(invaties):
-  lijst : list = list(invaties.keys())
+def edit_ac(initiative_lijst):
+  lijst : list = list(initiative_lijst.keys())
   lijst.sort(reverse=True)
   for item in lijst:
-    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
+    print(f'{int(lijst.index(item))}. {initiative_lijst[item]["NAAM"]}')
 
   gekozen_entry :int = int(input("Welke wil je bewerken? "))
   gekozen_entry :int = lijst[gekozen_entry]
 
   print()
-  print(f'De huidige armor class van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
-  verander_ac_hoeveelheid : int = int(input(f'Wat wil je dat de ac van {invaties[gekozen_entry]["NAAM"]} wordt ? '))
+  print(f'De huidige armor class van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["HP"]}')
+  verander_ac_hoeveelheid : int = int(input(f'Wat wil je dat de ac van {initiative_lijst[gekozen_entry]["NAAM"]} wordt ? '))
   print()
 
-  invaties[gekozen_entry]["AC"] = verander_ac_hoeveelheid
+  initiative_lijst[gekozen_entry]["AC"] = verander_ac_hoeveelheid
 
-  return invaties
+  return initiative_lijst
