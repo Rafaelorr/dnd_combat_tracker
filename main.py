@@ -1,3 +1,4 @@
+import os
 from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac
 
 initiative_lijst :dict = {}
@@ -32,6 +33,10 @@ if __name__ == "__main__":
 
         if command == "edit_ac":
             edit_ac(initiative_lijst)
+            continue
+
+        if command == "clear":
+            os.system("cls" if os.name == "nt" else "clear")
             continue
 
         if command == "help":
