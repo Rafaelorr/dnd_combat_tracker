@@ -23,24 +23,26 @@ def kies_entry_in_initiative_lijst(initiative_lijst:dict) -> int:
   return gekozen_entry
 
 def help():
-    print("""Commands:
-          Help
-            Toont alle commands
-          Exit
-            Stopt het programma
-          List
-            Toont alle invatie entries in volgorde
-          Add
-            Voegt een invatie entry toe
-          Delete
-            Verwijdert een invatie entry
-          Show
-            Toont de hit points en armor class van een invatie entry
-          Edit_hp
-            Verandert de hit points van een invatie entry
-          Edit_ac
-            Verandert de armor class van een invatie entry
-          """)
+  print("""Commands:
+    help
+        Toont alle commands
+    exit
+        Stopt het programma
+    list
+        Toont alle invatie entries in volgorde
+    add
+        Voegt een invatie entry toe
+    delete
+        Verwijdert een invatie entry
+    show
+        Toont de hit points en armor class van een invatie entry
+    edit_hp
+        Verandert de hit points van een invatie entry
+    edit_ac
+        Verandert de armor class van een invatie entry
+    clear
+        Wist het scherm
+  """)
 
 def add(initiative_lijst:dict) -> dict[dict]:    
   def get_valid_invatie() -> int | None:
