@@ -34,7 +34,9 @@ def help():
     show: Toont de hit points en armor class van een invatie entry
     edit_hp: Verandert de hit points van een invatie entry
     edit_ac: Verandert de armor class van een invatie entry
-    clear: Wist het scherm""")
+    clear: Wist het scherm
+    save: slaat het initiative op in een json bestand
+    load: laad het initiative van een json bestand""")
 
 def add(initiative_lijst:dict) -> dict[dict]:    
   def get_valid_invatie() -> int | None:
@@ -145,15 +147,19 @@ def save_initiative_lijst(initiative_lijst) -> None:
 
 def load_initiative_lijst() -> dict:
     bestand_naam = input("Uit welk bestand wil je de initiative laden: ")
-    
+
     try:
-        with open(bestand_naam, "r") as f_in:
-            initiative_lijst = json.load(f_in)  # use json.load for direct JSON object
-        print(f"Initiative lijst succesvol geladen uit {bestand_naam}.")
-        print(initiative_lijst)
-        return initiative_lijst
+      with open(bestand_naam, "r") as f_in:
+        initiative_lijst = json.load(f_in)
+    
+      print(f"Initiative lijst succesvol geladen uit {bestand_naam}.")
+
+      return initiative_lijst
+
     except FileNotFoundError:
-        print(f"Fout: Het bestand '{bestand_naam}' is niet gevonden.")
+      print(f"Fout: Het bestand '{bestand_naam}' is niet gevonden.")
+
     except json.JSONDecodeError:
-        print(f"Fout: Het bestand '{bestand_naam}' bevat ongeldig JSON.")
-    return {}  # return een lege dict als er een fout is
+      print(f"Fout: Het bestand '{bestand_naam}' bevat ongeldig JSON.")
+
+    return {}
