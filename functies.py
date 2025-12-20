@@ -1,3 +1,5 @@
+import json
+
 def get_valid_number(prompt, error_message) -> int:
   """Get a valid integer input."""
   while True:
@@ -134,3 +136,24 @@ def delete_entry(initiative_lijst) -> dict[dict]:
   del initiative_lijst[gekozen_entry]
 
   return initiative_lijst
+
+def save_initiative_lijst(initiative_lijst) -> None:
+  bestand_naam :str = input("In welk bestand wil je de initiative opslaan: ")
+
+  with open(bestand_naam, "w") as f:
+    f.write(json.dumps(initiative_lijst))
+
+def load_initiative_lijst() -> dict:
+    bestand_naam = input("Uit welk bestand wil je de initiative laden: ")
+    
+    try:
+        with open(bestand_naam, "r") as f_in:
+            initiative_lijst = json.load(f_in)  # use json.load for direct JSON object
+        print(f"Initiative lijst succesvol geladen uit {bestand_naam}.")
+        print(initiative_lijst)
+        return initiative_lijst
+    except FileNotFoundError:
+        print(f"Fout: Het bestand '{bestand_naam}' is niet gevonden.")
+    except json.JSONDecodeError:
+        print(f"Fout: Het bestand '{bestand_naam}' bevat ongeldig JSON.")
+    return {}  # return een lege dict als er een fout is
