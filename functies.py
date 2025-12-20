@@ -23,44 +23,32 @@ def kies_entry_in_initiative_lijst(initiative_lijst:dict) -> int:
   return gekozen_entry
 
 def help():
-    print("""Commands:
-          Help
-            Toont alle commands
-          Exit
-            Stopt het programma
-          List
-            Toont alle invatie entries in volgorde
-          Add
-            Voegt een invatie entry toe
-          Delete
-            Verwijdert een invatie entry
-          Show
-            Toont de hit points en armor class van een invatie entry
-          Edit_hp
-            Verandert de hit points van een invatie entry
-          Edit_ac
-            Verandert de armor class van een invatie entry
-          """)
+  print("""Commands:
+    help: Toont alle commands
+    exit: Stopt het programma
+    list: Toont alle invatie entries in volgorde
+    add: Voegt een invatie entry toe
+    delete: Verwijdert een invatie entry
+    show: Toont de hit points en armor class van een invatie entry
+    edit_hp: Verandert de hit points van een invatie entry
+    edit_ac: Verandert de armor class van een invatie entry
+    clear: Wist het scherm""")
 
 def add(initiative_lijst:dict) -> dict[dict]:    
   def get_valid_invatie() -> int | None:
     """Get a valid initiative value that doesn't already exist."""
     while True:
-      try:
-        invatie = get_valid_number("Invatie van de nieuwe entry: ","De invatie van de nieuwe entry moet een nummer zijn, bv: 10")
+      invatie = get_valid_number("Invatie van de nieuwe entry: ","De invatie van de nieuwe entry moet een nummer zijn, bv: 10")
                 
-        # Check if initiative already exists
-        if initiative_lijst.get(invatie):
-          print("Gekozen invatie bestaat al")
+      # Check if initiative already exists
+      if initiative_lijst.get(invatie):
+        print("Gekozen invatie bestaat al")
 
-          if input("Kies je een ander invatie? y/n: ").lower() != "y":
-            return None
-          continue
+        if input("Kies je een ander invatie? y/n: ").lower() != "y":
+          return None
+        continue
                     
-        return invatie
-                
-      except ValueError:
-        print()
+      return invatie
     
   def get_valid_name() -> str:
     """Get a non-empty name for the entry."""
@@ -132,5 +120,17 @@ def edit_ac(initiative_lijst) -> dict[dict]:
   print()
 
   initiative_lijst[gekozen_entry]["AC"] = verander_ac_hoeveelheid
+
+  return initiative_lijst
+
+def delete_entry(initiative_lijst) -> dict[dict]:
+  gekozen_entry :int = kies_entry_in_initiative_lijst(initiative_lijst)
+
+  if input(f'Wil je {initiative_lijst[gekozen_entry]["NAAM"]} verwijderen uit initiative ? y/n ').lower() == "n":
+    return
+  
+  print(f'{initiative_lijst[gekozen_entry]["NAAM"]} is verwijdert')
+
+  del initiative_lijst[gekozen_entry]
 
   return initiative_lijst

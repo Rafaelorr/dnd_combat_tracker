@@ -1,4 +1,5 @@
-from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac
+import os
+from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac, delete_entry
 
 initiative_lijst :dict = {}
 
@@ -19,7 +20,7 @@ if __name__ == "__main__":
             continue
 
         if command == "delete":
-            pass
+            delete_entry(initiative_lijst)
             continue
 
         if command == "show":
@@ -32,6 +33,10 @@ if __name__ == "__main__":
 
         if command == "edit_ac":
             edit_ac(initiative_lijst)
+            continue
+
+        if command == "clear":
+            os.system("cls" if os.name == "nt" else "clear")
             continue
 
         if command == "help":
