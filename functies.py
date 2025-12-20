@@ -1,3 +1,27 @@
+def get_valid_number(prompt, error_message) -> int:
+  """Get a valid integer input."""
+  while True:
+    try:
+      return int(input(prompt))
+    except ValueError:
+      print(error_message)
+
+def maak_lijst_van_initiative_lijst(initiative_lijst:dict) -> list:
+  lijst : list = list(initiative_lijst.keys())
+  lijst.sort(reverse=True)
+
+  return lijst
+
+def kies_entry_in_initiative_lijst(initiative_lijst:dict) -> int:
+  lijst = maak_lijst_van_initiative_lijst(initiative_lijst)
+
+  for item in lijst:
+    print(f'{int(lijst.index(item))}. {initiative_lijst[item]["NAAM"]}')
+
+  gekozen_entry :int = lijst[get_valid_number("Welke wil je bewerken? ","De entry die kiest moet een nummer zijn, bv:0")]
+
+  return gekozen_entry
+
 def help():
     print("""Commands:
           Help
@@ -18,109 +42,95 @@ def help():
             Verandert de armor class van een invatie entry
           """)
 
-def add(invaties:dict) -> dict:
-    # kies nieuw invatie om toe te voegen
-    try:
-      invatie : int = int(input("Invatie van de nieuwe entry: "))
-      if invaties.get(invatie):
-         print("Gekozen invatie bestaat al")
-         if input("Kies je een ander invatie? y/n").lower() == "y":
-            invatie : int = int(input("Invatie van de nieuwe entry: "))
-         else:
-            return
-    except:
-      print("Type de invatie van de nieuwe entry als een nummer bv:1")
-      invatie : int = int(input("Invatie van de nieuwe entry: "))
-      if invaties.get(invatie):
-         print("Gekozen invatie bestaat al")
-         if input("Kies je een ander invatie? y/n").lower() == "y":
-            invatie : int = int(input("Invatie van de nieuwe entry: "))
-         else:
-            return
+def add(initiative_lijst:dict) -> dict[dict]:    
+  def get_valid_invatie() -> int | None:
+    """Get a valid initiative value that doesn't already exist."""
+    while True:
+      try:
+        invatie = get_valid_number("Invatie van de nieuwe entry: ","De invatie van de nieuwe entry moet een nummer zijn, bv: 10")
+                
+        # Check if initiative already exists
+        if initiative_lijst.get(invatie):
+          print("Gekozen invatie bestaat al")
+
+          if input("Kies je een ander invatie? y/n: ").lower() != "y":
+            return None
+          continue
+                    
+        return invatie
+                
+      except ValueError:
+        print()
     
-    # kies naam
-    naam : str = input("Naam van de nieuwe entry: ")
-    if naam.strip() == "":
-       print("TIP: Geef de nieuw invatie entry een naam")
-       naam : str = input("Naam van de nieuwe entry: ")
+  def get_valid_name() -> str:
+    """Get a non-empty name for the entry."""
+    while True:
+      naam = input("Naam van de nieuwe entry: ").strip()
+            
+      if naam:
+        return naam
+                
+      print("TIP: Geef de nieuw invatie entry een naam")
     
-    # kies hit points nieuwe invatie entry
-    try:
-      hp : int = int(input("Hit points van de nieuwe entry: "))
-    except:
-      print("Type de hit points van de nieuwe entry als een nummer bv:1")
-      hp : int = int(input("Hit points van de nieuwe entry: "))
-
-    # kies armor class nieuwe invatie entry
-    try:
-      ac : int = int(input("Armor class van de nieuwe entry: "))
-    except:
-      print("Type de armor class van de nieuwe entry als een nummer bv:1")
-      ac : int = int(input("Armor class van de nieuwe entry: "))
-
-    # voeg nieuwe entry toe aan de lijst
-    invaties.setdefault(invatie, {})
     
-    invaties[invatie]["NAAM"] = naam
-    invaties[invatie]["HP"] = hp
-    invaties[invatie]["AC"] = ac
+    # Get initiative (return None if user cancels)
+  invatie = get_valid_invatie()
+  if invatie is None:
+    return None
 
-    return invaties
+  naam = get_valid_name()
 
-def toon_alle_entries(invaties:dict) -> None:
-  lijst : list = list(invaties.keys())
-  lijst.sort(reverse=True)
+  hp = get_valid_number(
+    "Hit points van de nieuwe entry: ",
+    "Type de hit points van de nieuwe entry als een nummer bv: 1"
+  )
+
+  ac = get_valid_number(
+    "Armor class van de nieuwe entry: ",
+    "Type de armor class van de nieuwe entry als een nummer bv: 1"
+  )
+
+  initiative_lijst[invatie] = {
+    "NAAM": naam,
+    "HP": hp,
+    "AC": ac
+  }
+    
+  return initiative_lijst
+
+def toon_alle_entries(initiative_lijst:dict) -> None:
+  lijst = maak_lijst_van_initiative_lijst(initiative_lijst)
   for item in lijst:
-     print(f'{item}. {invaties[item]["NAAM"]}')
+    print(f'{item}. {initiative_lijst[item]["NAAM"]}')
 
-def edit_hp(invaties:dict) -> dict:
-  lijst : list = list(invaties.keys())
-  lijst.sort(reverse=True)
-  for item in lijst:
-    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
-
-  gekozen_entry :int = int(input("Welke wil je bewerken? "))
-  gekozen_entry :int = lijst[gekozen_entry]
+def edit_hp(initiative_lijst:dict) -> dict[dict]:
+  gekozen_entry :int = kies_entry_in_initiative_lijst(initiative_lijst)
 
   print()
-  print(f'De huidige hp van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
-  verander_hp_hoeveelheid : int = int(input(f'Hoeveel wil je aan de hp van {invaties[gekozen_entry]["NAAM"]} toevoegen ? '))
+  print(f'De huidige hp van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["HP"]}')
+  verander_hp_hoeveelheid :int = get_valid_number(f'Hoeveel wil je aan de hit points van {initiative_lijst[gekozen_entry]["NAAM"]} toevoegen ? ',"De hoeveelheid die je aan de hit points wilt toevoegen moet een nummer zijn, bv: 12")
   print()
 
-  invaties[gekozen_entry]["HP"] += verander_hp_hoeveelheid
+  initiative_lijst[gekozen_entry]["HP"] += verander_hp_hoeveelheid
 
-  return invaties
+  return initiative_lijst
 
-def show(invaties:dict) -> None:
-  lijst : list = list(invaties.keys())
-  lijst.sort(reverse=True)
-  for item in lijst:
-    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
-
-  gekozen_entry :int = int(input("Van welke wil je de hp en ac zien? "))
-  gekozen_entry :int = lijst[gekozen_entry]
+def show(initiative_lijst:dict) -> None:
+  gekozen_entry :int = kies_entry_in_initiative_lijst(initiative_lijst)
 
   print()
-  print(f'De hit points van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
-  print(f'De armor class van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["AC"]}')
+  print(f'De hit points van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["HP"]}')
+  print(f'De armor class van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["AC"]}')
   print()
 
-  return
-
-def edit_ac(invaties):
-  lijst : list = list(invaties.keys())
-  lijst.sort(reverse=True)
-  for item in lijst:
-    print(f'{int(lijst.index(item))}. {invaties[item]["NAAM"]}')
-
-  gekozen_entry :int = int(input("Welke wil je bewerken? "))
-  gekozen_entry :int = lijst[gekozen_entry]
+def edit_ac(initiative_lijst) -> dict[dict]:
+  gekozen_entry :int = kies_entry_in_initiative_lijst(initiative_lijst)
 
   print()
-  print(f'De huidige armor class van {invaties[gekozen_entry]["NAAM"]}: {invaties[gekozen_entry]["HP"]}')
-  verander_ac_hoeveelheid : int = int(input(f'Wat wil je dat de ac van {invaties[gekozen_entry]["NAAM"]} wordt ? '))
+  print(f'De huidige armor class van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["AC"]}')
+  verander_ac_hoeveelheid : int = get_valid_number(f'Wat wil je dat de armor class van {initiative_lijst[gekozen_entry]["NAAM"]} wordt ? ',"De nieuwe armor class moet een nummer zijn, bv: 10")
   print()
 
-  invaties[gekozen_entry]["AC"] = verander_ac_hoeveelheid
+  initiative_lijst[gekozen_entry]["AC"] = verander_ac_hoeveelheid
 
-  return invaties
+  return initiative_lijst
