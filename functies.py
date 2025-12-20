@@ -122,3 +122,15 @@ def edit_ac(initiative_lijst) -> dict[dict]:
   initiative_lijst[gekozen_entry]["AC"] = verander_ac_hoeveelheid
 
   return initiative_lijst
+
+def delete_entry(initiative_lijst) -> dict[dict]:
+  gekozen_entry :int = kies_entry_in_initiative_lijst(initiative_lijst)
+
+  if input(f'Wil je {initiative_lijst[gekozen_entry]["NAAM"]} verwijderen uit initiative ? y/n ').lower() == "n":
+    return
+  
+  print(f'{initiative_lijst[gekozen_entry]["NAAM"]} is verwijdert')
+
+  del initiative_lijst[gekozen_entry]
+
+  return initiative_lijst
