@@ -24,45 +24,31 @@ def kies_entry_in_initiative_lijst(initiative_lijst:dict) -> int:
 
 def help():
   print("""Commands:
-    help
-        Toont alle commands
-    exit
-        Stopt het programma
-    list
-        Toont alle invatie entries in volgorde
-    add
-        Voegt een invatie entry toe
-    delete
-        Verwijdert een invatie entry
-    show
-        Toont de hit points en armor class van een invatie entry
-    edit_hp
-        Verandert de hit points van een invatie entry
-    edit_ac
-        Verandert de armor class van een invatie entry
-    clear
-        Wist het scherm
-  """)
+    help: Toont alle commands
+    exit: Stopt het programma
+    list: Toont alle invatie entries in volgorde
+    add: Voegt een invatie entry toe
+    delete: Verwijdert een invatie entry
+    show: Toont de hit points en armor class van een invatie entry
+    edit_hp: Verandert de hit points van een invatie entry
+    edit_ac: Verandert de armor class van een invatie entry
+    clear: Wist het scherm""")
 
 def add(initiative_lijst:dict) -> dict[dict]:    
   def get_valid_invatie() -> int | None:
     """Get a valid initiative value that doesn't already exist."""
     while True:
-      try:
-        invatie = get_valid_number("Invatie van de nieuwe entry: ","De invatie van de nieuwe entry moet een nummer zijn, bv: 10")
+      invatie = get_valid_number("Invatie van de nieuwe entry: ","De invatie van de nieuwe entry moet een nummer zijn, bv: 10")
                 
-        # Check if initiative already exists
-        if initiative_lijst.get(invatie):
-          print("Gekozen invatie bestaat al")
+      # Check if initiative already exists
+      if initiative_lijst.get(invatie):
+        print("Gekozen invatie bestaat al")
 
-          if input("Kies je een ander invatie? y/n: ").lower() != "y":
-            return None
-          continue
+        if input("Kies je een ander invatie? y/n: ").lower() != "y":
+          return None
+        continue
                     
-        return invatie
-                
-      except ValueError:
-        print()
+      return invatie
     
   def get_valid_name() -> str:
     """Get a non-empty name for the entry."""
