@@ -1,5 +1,5 @@
 import os
-from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac, delete_entry
+from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac, delete_entry, save_initiative_lijst, load_initiative_lijst
 
 initiative_lijst :dict = {}
 
@@ -33,6 +33,14 @@ if __name__ == "__main__":
 
         if command == "edit_ac":
             edit_ac(initiative_lijst)
+            continue
+
+        if command == "save":
+            save_initiative_lijst(initiative_lijst)
+            continue
+
+        if command == "load":
+            initiative_lijst = load_initiative_lijst()
             continue
 
         if command == "clear":
