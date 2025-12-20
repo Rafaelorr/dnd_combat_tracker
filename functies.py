@@ -108,7 +108,7 @@ def edit_hp(initiative_lijst:dict) -> dict[dict]:
 
   print()
   print(f'De huidige hp van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["HP"]}')
-  verander_hp_hoeveelheid :int = get_valid_number(f"Hoeveel wil je aan de hit points van {initiative_lijst[gekozen_entry]["NAAM"]} toevoegen ? ","De hoeveelheid die je aan de hit points wilt toevoegen moet een nummer zijn, bv: 12")
+  verander_hp_hoeveelheid :int = get_valid_number(f'Hoeveel wil je aan de hit points van {initiative_lijst[gekozen_entry]["NAAM"]} toevoegen ? ',"De hoeveelheid die je aan de hit points wilt toevoegen moet een nummer zijn, bv: 12")
   print()
 
   initiative_lijst[gekozen_entry]["HP"] += verander_hp_hoeveelheid
@@ -128,7 +128,7 @@ def edit_ac(initiative_lijst) -> dict[dict]:
 
   print()
   print(f'De huidige armor class van {initiative_lijst[gekozen_entry]["NAAM"]}: {initiative_lijst[gekozen_entry]["AC"]}')
-  verander_ac_hoeveelheid : int = get_valid_number(f"Wat wil je dat de armor class van {initiative_lijst[gekozen_entry]["NAAM"]} wordt ? ","De nieuwe armor class moet een nummer zijn, bv: 10")
+  verander_ac_hoeveelheid : int = get_valid_number(f'Wat wil je dat de armor class van {initiative_lijst[gekozen_entry]["NAAM"]} wordt ? ',"De nieuwe armor class moet een nummer zijn, bv: 10")
   print()
 
   initiative_lijst[gekozen_entry]["AC"] = verander_ac_hoeveelheid
