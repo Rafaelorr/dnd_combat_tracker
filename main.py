@@ -1,5 +1,7 @@
 import os
-from functies import help, toon_alle_entries, add, show, edit_hp, edit_ac, delete_entry, save_initiative_lijst, load_initiative_lijst
+import sys
+from functies import help_cli, toon_alle_entries, add, show, \
+    edit_hp, edit_ac, delete_entry, save_initiative_lijst, load_initiative_lijst
 
 initiative_lijst :dict = {}
 
@@ -9,46 +11,36 @@ if __name__ == "__main__":
     while True:
         command = input(": ").lower()
         if command == "exit":
-            exit()
-        
-        if command == "list":
+            sys.exit(0)
+
+        elif command == "list":
             toon_alle_entries(initiative_lijst)
-            continue
-        
-        if command == "add":
+
+        elif command == "add":
             add(initiative_lijst)
-            continue
 
-        if command == "delete":
+        elif command == "delete":
             delete_entry(initiative_lijst)
-            continue
 
-        if command == "show":
+        elif command == "show":
             show(initiative_lijst)
-            continue
 
-        if command == "edit_hp":
+        elif command == "edit_hp":
             edit_hp(initiative_lijst)
-            continue
 
-        if command == "edit_ac":
+        elif command == "edit_ac":
             edit_ac(initiative_lijst)
-            continue
 
-        if command == "save":
+        elif command == "save":
             save_initiative_lijst(initiative_lijst)
-            continue
 
-        if command == "load":
+        elif command == "load":
             initiative_lijst = load_initiative_lijst()
-            continue
 
-        if command == "clear":
+        elif command == "clear":
             os.system("cls" if os.name == "nt" else "clear")
-            continue
 
-        if command == "help":
-            help()
-            continue
+        elif command == "help":
+            help_cli()
 
         print("Invalid command")
